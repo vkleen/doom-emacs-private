@@ -69,9 +69,9 @@
        ;;wakatime
 
        :lang
-       ;;assembly
+       assembly
        (cc +irony +rtags)
-       crystal
+       ;; crystal
        ;;clojure
        ;;csharp
        common-lisp
@@ -82,10 +82,10 @@
        emacs-lisp
        ;;ess
        ;;go
-       (haskell +intero)
+       (haskell +dante)
        ;;hy
        ;;(java +meghanada)
-       javascript
+       ;; javascript
        ;;julia
        latex
        ;;ledger
@@ -99,10 +99,10 @@
        ;;php
        ;;plantuml
        ;;purescript
-       (python +pyenv)
+       ;; (python +pyenv)
        rest
        ;;ruby
-       rust
+       ;; rust
        ;;scala
        sh
        ;;swift

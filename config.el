@@ -1,4 +1,4 @@
-;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
+;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 
 ;; (defvar xdg-data (getenv "XDG_DATA_HOME"))
 ;; (defvar xdg-bin (getenv "XDG_BIN_HOME"))
@@ -8,16 +8,18 @@
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (setq-default
- user-full-name    "Henrik Lissner"
- user-mail-address "henrik@lissner.net"
+ user-full-name    "Viktor Kleen"
+ user-mail-address "vkleen@17220103.de"
 
  ;; doom-variable-pitch-font (font-spec :family "Fira Sans")
  ;; doom-unicode-font (font-spec :family "Input Mono Narrow" :size 12)
- doom-big-font (font-spec :family "Fira Mono" :size 19)
+ doom-big-font (font-spec :family "PragmataPro" :size 19)
 
  +workspaces-switch-project-function #'ignore
  +pretty-code-enabled-modes '(emacs-lisp-mode org-mode)
- +format-on-save-enabled-modes '(not emacs-lisp-mode))
+ +format-on-save-enabled-modes '(not emacs-lisp-mode)
+ doom-theme 'doom-one
+ doom-localleader-key "\\" )
 
 ;; (setq-hook! 'minibuffer-setup-hook show-trailing-whitespace nil)
 
@@ -27,34 +29,25 @@
 ;;
 ;; Host-specific config
 
-(unless (equal (system-name) "proteus")
-  ;; I've swapped these keys on my keyboard
-  (setq x-super-keysym 'meta
-        x-meta-keysym  'super))
-
 (pcase (system-name)
-  ("halimede"
-   (setq doom-font (font-spec :family "Input Mono Narrow" :size 9)))
   (_
-   (setq doom-font (font-spec :family "Input Mono Narrow" :size 12 :weight 'semi-light)
+   (setq doom-font (font-spec :family "PragmataPro" :size 16 :weight 'semi-light)
          +modeline-height 25)))
-
-(when IS-MAC
-  (setq ns-use-thin-smoothing t)
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark))
-  (add-hook 'window-setup-hook #'toggle-frame-maximized))
-
 
 ;;
 ;; Keybindings
 
+
 (map!
+ :n "\\" nil
  ;; Easier window navigation
  :n "C-h"   #'evil-window-left
  :n "C-j"   #'evil-window-down
  :n "C-k"   #'evil-window-up
  :n "C-l"   #'evil-window-right
+
+ :n "J"     (lambda () (interactive) (evil-next-line 10))
+ :n "K"     (lambda () (interactive) (evil-previous-line 10))
 
  (:after treemacs-evil
    (:map evil-treemacs-state-map
@@ -62,12 +55,14 @@
      "C-l" #'evil-window-right))
 
  (:leader
-   (:prefix "f"
-     :desc "Find file in dotfiles" :n "t" #'+hlissner/find-in-dotfiles
-     :desc "Browse dotfiles"       :n "T" #'+hlissner/browse-dotfiles)
+   ;; (:prefix "f"
+   ;;   :desc "Find file in dotfiles" :n "t" #'+hlissner/find-in-dotfiles
+   ;;   :desc "Browse dotfiles"       :n "T" #'+hlissner/browse-dotfiles)
    (:prefix "n"
      :desc "Browse mode notes"     :n  "m" #'+hlissner/find-notes-for-major-mode
-     :desc "Browse project notes"  :n  "p" #'+hlissner/find-notes-for-project)))
+     :desc "Browse project notes"  :n  "p" #'+hlissner/find-notes-for-project)
+
+   :desc "Join" :n "j" #'evil-join))
 
 
 ;;
@@ -90,9 +85,9 @@
 ;; tools/magit
 (setq magit-repository-directories '(("~/work" . 2))
       magit-save-repository-buffers nil
-      magit-commit-arguments '("--gpg-sign=5F6C0EA160557395")
-      magit-rebase-arguments '("--autostash" "--gpg-sign=5F6C0EA160557395")
-      magit-pull-arguments   '("--rebase" "--autostash" "--gpg-sign=5F6C0EA160557395"))
+      magit-commit-arguments '("--gpg-sign=1FE9015A0610E43C74EFC813744138390330BB39")
+      magit-rebase-arguments '("--autostash" "--gpg-sign=1FE9015A0610E43C74EFC813744138390330BB39")
+      magit-pull-arguments   '("--rebase" "--autostash" "--gpg-sign=1FE9015A0610E43C74EFC813744138390330BB39"))
 
 ;; lang/org
 (setq org-directory (expand-file-name "~/work/org/")
